@@ -461,10 +461,11 @@ def create_shows():
 def create_show_submission():
   # called to create new shows in the db, upon submitting new show listing form
   # TODO: insert form data as a new Show record in the db, instead
+  form = ShowForm(request.form)
   try:
-    artistID = request.form['artist_id']
-    venueID = request.form['venue_id']
-    time = request.form['start_time']
+    artistID = form.artist_id.data
+    venueID = form.venue_id.data
+    time = form.start_time.data
     newShow = Show(artist_id=artistID, venue_id=venueID, start_time=time)
     db.session.add(newShow)
     db.session.commit()
